@@ -7,6 +7,6 @@ export default function app(state = initial, action) {
     switch (action.type) {
 
         default:
-            return state;
+            return state
     }
 }

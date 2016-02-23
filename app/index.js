@@ -1,3 +1,3 @@
 
-import './style.scss';
-import './root.jsx';
+import './style.scss'
+import './root.jsx'

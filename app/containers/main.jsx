@@ -1,14 +1,13 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-import Nav from '../components/nav.jsx'
+import { routerActionCreators} from '../../index'
 
+import Nav from '../components/nav.jsx'
 import Home from '../components/home.jsx'
 import About from '../components/about.jsx'
 import Blog from '../components/blog.jsx'
 import Error from '../components/error.jsx'
-
-import { routerActionCreators} from '../../index'
 
 export default connect(mapState, mapDispatch)(render)
 
