@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { routerActionCreators} from '../../index'
+import { routerActionCreators} from '../../src'
 
 import Nav from '../components/nav.jsx'
 import Home from '../components/home.jsx'
