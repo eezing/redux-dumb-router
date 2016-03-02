@@ -1,11 +1,10 @@
 
-import { POP } from 'history/lib/Actions'
 import * as actionCreators from './action-creators'
 import * as actionTypes from './action-types'
 
 export default function createMiddleware(history) {
 
-    let dispatch, currentLocation
+    let dispatch = undefined
 
     const historyListener = store => {
 
