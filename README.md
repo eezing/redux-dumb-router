@@ -4,7 +4,7 @@
 
 **Note: Experimental - Expect breaking changes**
 
-A simple routing solution for reactjs/redux. Essentially, it's just lightweight middleware to bridge redux to reactjs/history.
+A simple routing solution for [reactjs/redux](https://github.com/reactjs/redux). Essentially, it's just lightweight middleware to bridge redux to [reactjs/history](https://github.com/reactjs/history).
 
 - Issue a route change with a dispatch action
 - Router state in redux store
@@ -50,7 +50,7 @@ store.dispatch(routerActionCreators.start()) // <-- c. dispatch start action
 
 /*
 
-workflow:
+Flow:
 
 --> state: {} (empty)
 --> dispatch action: { type: actionTypes.START }
@@ -78,7 +78,7 @@ store.dispatch(routerActionCreators.goto(pathname)) // <-- d. dispatch goto acti
 
 /*
 
-workflow:
+Flow:
 
 --> state: { pathname: '/home' }
 --> dispatch action: { type: actionTypes.GOTO, pathname: '/about' }
