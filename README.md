@@ -12,7 +12,7 @@ import { reducer as router } from 'redux-dumb-router' // <-- a. import reducer a
 ```
 import createHistory from 'history/lib/createBrowserHistory' // <-- a. import createHistory
 
-import { createRouterMiddleware } from 'redux-dumb-router' // <-- b. import createRouterMiddleware
+import { createMiddleware as createRouterMiddleware } from 'redux-dumb-router' // <-- b. import createMiddleware
 
 
 const history = createHistory() // <-- c. create history
@@ -26,7 +26,7 @@ const routerMiddleware = createRouterMiddleware(history) // <-- d. create middle
 ```
 import store from './your-store.js' // <-- a. your store
 
-import { routerActionCreators } from 'redux-dumb-router' // <-- b. import action creators
+import { actionCreators as routerActionCreators } from 'redux-dumb-router' // <-- b. import action creators
 
 
 store.dispatch(routerActionCreators.start()) // <-- c. dispatch start action
@@ -53,7 +53,7 @@ Pathname in URL: '/home'
 ```
 import store from './your-store.js' // <-- a. your store
 
-import { routerActionCreators } from 'redux-dumb-router' // <-- b. import action creators
+import { actionCreators as routerActionCreators } from 'redux-dumb-router' // <-- b. import action creators
 
 
 const pathname = '/about' // <-- c. Specify a target pathname
