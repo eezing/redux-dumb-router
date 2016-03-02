@@ -9,7 +9,7 @@ A simple routing solution for [reactjs/redux](https://github.com/reactjs/redux).
 - Catch route changes with middleware
 
 **Notes:**
-- window.scroll(0, 0) is executed on action.GOT0 for scroll to top behavior. Using this until a more elegant solution presents itself. May make this optional if required.
+- window.scroll(0, 0) is fired on action.GOTO. Using this until a more elegant solution for scroll to top presents itself.
 
 ---
 
