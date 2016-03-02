@@ -2,7 +2,7 @@
 import { expect } from 'chai'
 
 import * as actionTypes from '../src/action-types'
-import routerReducer from '../src/router-reducer'
+import routerReducer from '../src/reducer'
 
 describe('Reducers return new state when given an action', function() {
 

@@ -1,18 +1,34 @@
 ## redux-dumb-router
 
+---
+
+**Note: Experimental - Expect breaking changes**
+
+A simple routing solution for reactjs/redux. Essentially, it's just lightweight middleware to bridge redux to reactjs/history.
+
+- Issue a route change with a dispatch action
+- Router state in redux store
+- Catch route changes with middleware
+
+---
+
+### Get Started
+
 #### Step 1 - Reducer
 
-```
-import { reducer as router } from 'redux-dumb-router' // <-- a. import reducer as [some name you choose]
+```javascript
+
+import { routerReducer as router } from 'redux-dumb-router' // <-- a. import router reducer as [some name you choose]
 
 ```
 
 #### Step 2 - Middleware
 
-```
-import createHistory from 'history/lib/createBrowserHistory' // <-- a. import createHistory
+```javascript
 
-import { createMiddleware as createRouterMiddleware } from 'redux-dumb-router' // <-- b. import createMiddleware
+import createHistory from 'history/lib/createBrowserHistory' // <-- a. import create history
+
+import { createRouterMiddleware } from 'redux-dumb-router' // <-- b. import create middleware
 
 
 const history = createHistory() // <-- c. create history
@@ -23,26 +39,25 @@ const routerMiddleware = createRouterMiddleware(history) // <-- d. create middle
 
 #### Step 3 - Dispatch start action
 
-```
+```javascript
+
 import store from './your-store.js' // <-- a. your store
 
-import { actionCreators as routerActionCreators } from 'redux-dumb-router' // <-- b. import action creators
+import { routerActionCreators } from 'redux-dumb-router' // <-- b. import action creators
 
 
 store.dispatch(routerActionCreators.start()) // <-- c. dispatch start action
 
-
 /*
 
-What happens:
+workflow:
 
-Pathname in URL: '/home'
-
--- store before --->  {}
--- action start --->  { type: 'redux-dumb-router/start' }
--- store ---------->  {}
--- action change -->  { type: 'redux-dumb-router/change', pathname: '/home' }
--- store ---------->  { pathname: '/home' }
+--> state: {} (empty)
+--> dispatch action: { type: actionTypes.START }
+--> middleware creates history listener
+--> history POPS current location
+--> history listener dispatches action: { type: actionTypes.CHANGE, pathname: [of current location] }
+--> state: { pathname: [of current location] }
 
 */
 
@@ -50,26 +65,28 @@ Pathname in URL: '/home'
 
 #### Step 4 - Dispatch goto action
 
-```
+```javascript
+
 import store from './your-store.js' // <-- a. your store
 
-import { actionCreators as routerActionCreators } from 'redux-dumb-router' // <-- b. import action creators
+import { routerActionCreators } from 'redux-dumb-router' // <-- b. import action creators
 
 
 const pathname = '/about' // <-- c. Specify a target pathname
 
 store.dispatch(routerActionCreators.goto(pathname)) // <-- d. dispatch goto action with target pathname
 
-
 /*
 
-What happens:
+workflow:
 
--- store before --->  { pathname: '/home' }
--- action goto ---->  { type: 'redux-dumb-router/goto', pathname: '/about' }
--- store ---------->  { pathname: '/home', next: '/about' }
--- action change -->  { type: 'redux-dumb-router/change', pathname: '/about' }
--- store ---------->  { pathname: '/home' }
+--> state: { pathname: '/home' }
+--> dispatch action: { type: actionTypes.GOTO, pathname: '/about' }
+--> middleware issues history.push(pathname)
+--> state: { pathname: '/home', next: '/about' }
+--> history pushes new location
+--> history listener dispatches action: { type: actionTypes.CHANGE, pathname: '/about' }
+--> state: { pathname: '/about' }
 
 */
 

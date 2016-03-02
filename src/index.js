@@ -1,10 +1,10 @@
 
-import createRouterMiddleware from './create-middleware'
-import routerReducer from './reducer'
-import * as routerActionTypes from './action-types'
-import * as routerActionCreators from './action-creators'
+import createMiddleware from './create-middleware'
+import reducer from './reducer'
+import * as actionTypes from './action-types'
+import * as actionCreators from './action-creators'
 
-export const actionTypes = routerActionTypes
-export const actionCreators = routerActionCreators
-export const createMiddleware = createRouterMiddleware
-export const reducer = routerReducer
+export const routerActionTypes = actionTypes
+export const routerActionCreators = actionCreators
+export const createRouterMiddleware = createMiddleware
+export const routerReducer = reducer
