@@ -1,6 +1,5 @@
 
 import { POP } from 'history/lib/Actions'
-import doScroll from './do-scroll'
 import * as actionCreators from './action-creators'
 import * as actionTypes from './action-types'
 
@@ -13,8 +12,7 @@ export default function createMiddleware(history) {
         dispatch = store.dispatch
 
         history.listen(location => {
-            if (location.action === POP) return dispatch(actionCreators.change(location.pathname))
-            doScroll(0, () => dispatch(actionCreators.change(location.pathname)))
+            dispatch(actionCreators.change(location.pathname))
         })
     }
 
@@ -23,6 +21,7 @@ export default function createMiddleware(history) {
         next(action)
 
         if (action.type === actionTypes.GOTO) {
+            window.scroll(0, 0)
             history.push(action.pathname)
         }
 

@@ -1,7 +1,7 @@
 
 import * as actionTypes from './action-types'
 
-export default function routerReducer(state = {}, action) {
+export default function(state = {}, action) {
 
     switch (action.type) {
 

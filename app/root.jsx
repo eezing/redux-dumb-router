@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import store from './store.js'
 import Main from './containers/main.jsx'
-import { routerActionCreators } from '../src'
+import { actionCreators as routerActionCreators } from '../src'
 
 store.dispatch(routerActionCreators.start())
 
