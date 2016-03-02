@@ -1,12 +1,15 @@
 ## redux-dumb-router
 
-**Note: Experimental - Expect breaking changes**
+**Experimental - Expect breaking changes**
 
 A simple routing solution for [reactjs/redux](https://github.com/reactjs/redux). Essentially, it's just lightweight middleware to bridge redux to [reactjs/history](https://github.com/reactjs/history).
 
 - Issue a route change with a dispatch action
 - Router state in redux store
 - Catch route changes with middleware
+
+**Notes:**
+- window.scroll(0, 0) is executed on action.GOT0 for scroll to top behavior. Using this until a more elegant solution presents itself. May make this optional if required.
 
 ---
 
