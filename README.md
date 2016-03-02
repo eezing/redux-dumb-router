@@ -1,7 +1,5 @@
 ## redux-dumb-router
 
----
-
 **Note: Experimental - Expect breaking changes**
 
 A simple routing solution for reactjs/redux. Essentially, it's just lightweight middleware to bridge redux to reactjs/history.
