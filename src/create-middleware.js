@@ -11,7 +11,7 @@ export default function createMiddleware(history) {
         dispatch = store.dispatch
 
         history.listen(location => {
-            dispatch(actionCreators.change(location.pathname))
+            dispatch(actionCreators.change(location.pathname, location))
         })
     }
 

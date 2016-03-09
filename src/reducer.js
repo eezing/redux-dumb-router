@@ -12,7 +12,8 @@ export default function(state = {}, action) {
 
         case actionTypes.CHANGE:
             return Object.assign({}, {
-                pathname: action.pathname
+                pathname: action.pathname,
+                location: Object.assign({}, action.location)
             })
 
         default:

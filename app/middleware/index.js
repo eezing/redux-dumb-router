@@ -2,10 +2,10 @@
 import { applyMiddleware } from 'redux'
 import logger from './logger'
 
-import createHistory from 'history/lib/createBrowserHistory'
+import { createHistory, useQueries } from 'history'
 import { createRouterMiddleware } from '../../src'
 
-const history = createHistory()
+const history = useQueries(createHistory)()
 const routerMiddleware = createRouterMiddleware(history)
 const middleware = applyMiddleware(logger, routerMiddleware)
 
