@@ -57,8 +57,8 @@ Flow:
 --> dispatch action: { type: actionTypes.START }
 --> middleware creates history listener
 --> history POPS current location
---> history listener dispatches action: { type: actionTypes.CHANGE, pathname: [of current location] }
---> state: { pathname: [of current location] }
+--> history listener dispatches action: { type: actionTypes.CHANGE, pathname: [of current location], location: [location obj] }
+--> state: { pathname: [of current location], location: [location obj] }
 
 */
 
@@ -81,13 +81,13 @@ store.dispatch(routerActionCreators.goto(pathname)) // <-- d. dispatch goto acti
 
 Flow:
 
---> state: { pathname: '/home' }
+--> state: { pathname: '/home', location: [location obj] }
 --> dispatch action: { type: actionTypes.GOTO, pathname: '/about' }
 --> middleware issues history.push(pathname)
---> state: { pathname: '/home', next: '/about' }
+--> state: { pathname: '/home', location: [location obj], next: '/about' }
 --> history pushes new location
---> history listener dispatches action: { type: actionTypes.CHANGE, pathname: '/about' }
---> state: { pathname: '/about' }
+--> history listener dispatches action: { type: actionTypes.CHANGE, pathname: '/about', location: [location obj] }
+--> state: { pathname: '/about', location: [location obj] }
 
 */
 
