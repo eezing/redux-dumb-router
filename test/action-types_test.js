@@ -1,25 +1,26 @@
 
 import { expect } from 'chai'
-
 import * as actionTypes from '../src/action-types'
 
-const typesList = ['START', 'GOTO', 'CHANGE']
+describe('Action Types', function() {
 
-describe('Action types are defined correctly', function() {
+    var subject = actionTypes
 
-    typesList.forEach(function(typeName) {
+    var shouldHaveTypes = ['CHANGE', 'START', 'GOTO', 'REPLACE']
 
-        describe(typeName, function() {
+    shouldHaveTypes.forEach(function(typeName) {
+
+        context(typeName, function() {
 
             it('should be a non-empty string', function() {
-                expect(actionTypes[typeName]).to.be.a('string')
-                expect(actionTypes[typeName]).to.not.equal('')
+                expect(subject[typeName]).to.be.a('string')
+                expect(subject[typeName]).to.not.equal('')
             })
 
             it('should be unique among siblings', function() {
-                typesList.forEach(function(item) {
+                shouldHaveTypes.forEach(function(item) {
                     if (item === typeName) return
-                    expect(actionTypes[item]).to.not.equal(typeName)
+                    expect(subject[item]).to.not.equal(typeName)
                 })
             })
         })

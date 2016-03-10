@@ -4,45 +4,47 @@ import { expect } from 'chai'
 import * as actionTypes from '../src/action-types'
 import routerReducer from '../src/reducer'
 
-describe('Reducers return new state when given an action', function() {
+describe('Reducers', function() {
 
-    describe('GOTO', function() {
+    context('CHANGE', function() {
+        it('should have expected object structure', function() {
 
-        const state = { pathname: '/contact' }
+            // setup
+            const state = { pathname: '/contact' }
+            const action = { type: actionTypes.CHANGE, pathname: '/home' }
+            const subject = routerReducer
 
-        const action = {
-            type: actionTypes.GOTO,
-            pathname: '/home'
-        }
-
-        const newState = routerReducer(state, action)
-
-        it('should have next property equal to pathname property of given action', function() {
-            expect(newState).property('next', action.pathname)
-        })
-
-        it('should have pathname property equal to pathname property of given action', function() {
-            expect(newState).property('pathname', state.pathname)
+            // action -> result
+            const result = subject(state, action)
+            expect(result).to.be.eql({ pathname: action.pathname, location: {} })
         })
     })
 
-    describe('CHANGE', function() {
+    context('GOTO', function() {
+        it('should have expected object structure', function() {
 
-        const state = { pathname: '/contact', next: '/about' }
+            // setup
+            const state = { pathname: '/contact' }
+            const action = { type: actionTypes.GOTO, pathname: '/home' }
+            const subject = routerReducer
 
-        const action = {
-            type: actionTypes.CHANGE,
-            pathname: '/about'
-        }
-
-        const newState = routerReducer(state, action)
-
-        it('should not have next property', function() {
-            expect(newState.next).to.not.exist
+            // action -> result
+            const result = subject(state, action)
+            expect(result).to.be.eql({ pathname: state.pathname, next: action.pathname })
         })
+    })
 
-        it('should have pathname property equal to pathname of given action', function() {
-            expect(newState).property('pathname', action.pathname)
+    context('REPLACE', function() {
+        it('should have expected object structure', function() {
+
+            // setup
+            const state = { pathname: '/contact' }
+            const action = { type: actionTypes.REPLACE, pathname: '/home' }
+            const subject = routerReducer
+
+            // action -> result
+            const result = subject(state, action)
+            expect(result).to.be.eql({ pathname: state.pathname, next: action.pathname })
         })
     })
 })

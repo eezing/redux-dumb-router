@@ -20,8 +20,11 @@ export default function createMiddleware(history) {
         next(action)
 
         if (action.type === actionTypes.GOTO) {
-            window.scroll(0, 0)
             history.push(action.pathname)
+        }
+
+        if (action.type === actionTypes.REPLACE) {
+            history.replace(action.pathname)
         }
 
         if (action.type === actionTypes.START) {
