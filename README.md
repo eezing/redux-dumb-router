@@ -89,8 +89,9 @@ Flow:
 */
 
 ```
+---
 
-#### Step 5 - Dispatch replace action
+#### Dispatch replace action
 
 ```javascript
 
