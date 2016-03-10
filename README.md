@@ -89,3 +89,32 @@ Flow:
 */
 
 ```
+
+#### Step 5 - Dispatch replace action
+
+```javascript
+
+import store from './your-store.js' // <-- a. your store
+
+import { routerActionCreators } from 'redux-dumb-router' // <-- b. import action creators
+
+
+const pathname = '/contact' // <-- c. Specify a target pathname
+
+store.dispatch(routerActionCreators.replace(pathname)) // <-- d. dispatch replace action with target pathname
+
+/*
+
+Flow:
+
+--> state: { pathname: '/home', location: [location obj] }
+--> dispatch action: { type: actionTypes.REPLACE, pathname: '/contact' }
+--> middleware issues history.push(pathname)
+--> state: { pathname: '/home', location: [location obj], next: '/contact' }
+--> history replaces location
+--> history listener dispatches action: { type: actionTypes.CHANGE, pathname: '/contact', location: [location obj] }
+--> state: { pathname: '/contact', location: [location obj] }
+
+*/
+
+```
