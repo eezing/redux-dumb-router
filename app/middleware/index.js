@@ -7,6 +7,6 @@ import { createRouterMiddleware } from '../../src'
 
 const history = useQueries(createHistory)()
 const routerMiddleware = createRouterMiddleware(history)
-const middleware = applyMiddleware(logger, routerMiddleware)
+const middleware = applyMiddleware(routerMiddleware)
 
 export default middleware
