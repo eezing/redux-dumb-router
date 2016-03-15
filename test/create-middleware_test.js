@@ -1,5 +1,6 @@
 
 import {expect} from 'chai'
+import jsdom from 'mocha-jsdom'
 import { applyMiddleware, createStore } from 'redux'
 import {createMemoryHistory} from 'history'
 
@@ -15,6 +16,8 @@ const createTestMiddleware = (fn) => {
 }
 
 describe('Middleware', function() {
+
+    jsdom()
 
     context('Dispatch "CHANGE" action with final store result', function() {
         it('Store should have expected structure', function() {

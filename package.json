@@ -4,10 +4,10 @@
   "description": "",
   "main": "lib",
   "scripts": {
-    "build-lib": "./node_modules/.bin/babel src -d lib",
-    "test": "npm run test-mocha",
-    "test-mocha": "mocha --require babel-core/register --recursive",
-    "test-watch": "npm run test-mocha -- --watch",
+    "build:lib": "./node_modules/.bin/babel src -d lib",
+    "test": "npm run test:mocha",
+    "test:mocha": "mocha --require babel-core/register --recursive",
+    "test:watch": "npm run test:mocha -- --watch",
     "dev": "webpack-dev-server --config webpack.config.js --hot --inline"
   },
   "repository": {
@@ -29,7 +29,9 @@
     "chai": "^3.5.0",
     "css-loader": "^0.23.1",
     "history": "^2.0.0-rc2",
+    "jsdom": "^8.1.0",
     "mocha": "^2.4.5",
+    "mocha-jsdom": "^1.1.0",
     "node-sass": "^3.4.2",
     "react": "^0.14.5",
     "react-addons-css-transition-group": "^0.14.6",

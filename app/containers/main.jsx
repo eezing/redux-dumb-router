@@ -2,6 +2,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { routerActionCreators} from '../../src'
+import PageContainer from './page-container.jsx'
 
 import Nav from '../components/nav.jsx'
 import Home from '../components/home.jsx'
@@ -13,7 +14,8 @@ export default connect(mapState, mapDispatch)(render)
 
 function mapState(state) {
     return {
-        routerPathname: state.router.pathname
+        routerPathname: state.router.pathname,
+        routerLocation: state.router.location
     }
 }
 
@@ -25,7 +27,7 @@ function mapDispatch(dispatch) {
 
 function render(props) {
 
-    const homeProps = {
+    const navProps = {
         router: {
             pathname: props.routerPathname,
             goto: props.routerGoto
@@ -34,27 +36,33 @@ function render(props) {
 
     return (
         <div>
-            <Nav {...homeProps}/>
-            { getContent(props.routerPathname) }
+            <Nav {...navProps}/>
+            { getContent(props.routerPathname, props.routerLocation) }
         </div>
     )
 }
 
-function getContent(pathname) {
+function getContent(pathname, location) {
+
+    let Page = null
 
     switch (pathname) {
 
         case '/':
-            return (<Home />)
+            Page = Home
+            break;
 
         case '/home':
-            return (<Home />)
+            Page = Home
+            break;
 
         case '/about':
-            return (<About />)
+            Page = About
+            break;
 
         case '/blog':
-            return (<Blog />)
+            Page = Blog
+            break;
 
         case undefined:
             return
@@ -62,4 +70,8 @@ function getContent(pathname) {
         default:
             return (<Error errorType="/404" />)
     }
+
+    Page = PageContainer(Page)
+
+    return (<Page location={location} />)
 }
