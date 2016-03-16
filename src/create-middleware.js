@@ -30,7 +30,7 @@ export default function createMiddleware(history) {
                 history.push(action.pathname)
             }
 
-            history.replace({ pathname: currentLocation.pathname, state: { scrollY: window.scrollY } })
+            history.replace(Object.assign({}, currentLocation, { state: { scrollY: window.scrollY }} ))
         }
 
         if (action.type === actionTypes.REPLACE) {
