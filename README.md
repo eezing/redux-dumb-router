@@ -8,6 +8,7 @@ A simple routing solution for [reactjs/redux](https://github.com/reactjs/redux).
 - Router state in redux store
 - Catch route changes with middleware
 
+[![Build Status](https://travis-ci.org/eezing/redux-dumb-router.svg?branch=master)](https://travis-ci.org/eezing/redux-dumb-router)
 ---
 
 ## Get Started
