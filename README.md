@@ -1,6 +1,6 @@
 # redux-dumb-router
 
-**Experimental - Expect breaking changes**
+** Experimental - Expect breaking changes **
 
 A simple routing solution for [reactjs/redux](https://github.com/reactjs/redux). Essentially, it's just lightweight middleware to bridge redux to [mjackson/history](https://github.com/mjackson/history).
 
@@ -8,7 +8,7 @@ A simple routing solution for [reactjs/redux](https://github.com/reactjs/redux).
 - Router state in redux store
 - Catch route changes with middleware
 
-[![Build Status](https://travis-ci.org/eezing/redux-dumb-router.svg?branch=master)](https://travis-ci.org/eezing/redux-dumb-router)
+[![Build Status](https://travis-ci.org/eezing/redux-dumb-router.svg?branch=master)](https://travis-ci.org/eezing/redux-dumb-router) [![npm version](https://badge.fury.io/js/redux-dumb-router.svg)](https://badge.fury.io/js/redux-dumb-router)
 ---
 
 ## Get Started
