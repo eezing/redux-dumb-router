@@ -1,6 +1,6 @@
 # redux-dumb-router
 
-A simple routing solution for [reactjs/redux](https://github.com/reactjs/redux).
+A simple minded routing solution for reactjs/redux
 
 Essentially, it's just lightweight middleware to bridge redux to [mjackson/history](https://github.com/mjackson/history).
 
