@@ -2,10 +2,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import RouteWrapper from './RouteWrapper.jsx'
+import Error404 from './Error404.jsx'
 
 import About from './About.jsx'
 import Blog from './Blog.jsx'
-import Error404 from './Error404.jsx'
 import Home from './Home.jsx'
 
 export default connect(mapState)(render)
