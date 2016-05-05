@@ -23,6 +23,9 @@ module.exports = {
         historyApiFallback: true,
         stats: { colors: true }
     },
+	resolve: {
+		extensions: ['', '.js', '.jsx']
+	},
     devtool: 'source-map',
     debug: true,
     module: {
