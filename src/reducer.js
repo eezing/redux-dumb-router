@@ -6,20 +6,13 @@ export default function(state = {}, action) {
     switch (action.type) {
 
         case actionTypes.CHANGE:
-            return Object.assign({}, {
-                pathname: action.pathname,
-                location: Object.assign({}, action.location)
-            })
+            return { location: action.location }
 
         case actionTypes.GOTO:
-            return Object.assign({}, state, {
-                next: action.pathname
-            })
+            return Object.assign({}, state, { next: action.pathname })
 
         case actionTypes.REPLACE:
-            return Object.assign({}, state, {
-                next: action.pathname
-            })
+            return Object.assign({}, state, { next: action.pathname })
 
         default:
             return state

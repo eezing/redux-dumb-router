@@ -5,17 +5,13 @@ import * as actionTypes from './action-types'
 export default function createMiddleware(history) {
 
     let dispatch = null
-    let currentLocation = null
-    let pending = null
 
     const historyListener = store => {
 
         dispatch = store.dispatch
 
         history.listen(location => {
-            if (pending) return pending()
-            currentLocation = location
-            dispatch(actionCreators.change(location.pathname, location))
+            dispatch(actionCreators.change(location))
         })
     }
 
@@ -24,13 +20,7 @@ export default function createMiddleware(history) {
         next(action)
 
         if (action.type === actionTypes.GOTO) {
-
-            pending = () => {
-                pending = null
-                history.push(action.pathname)
-            }
-
-            history.replace(Object.assign({}, currentLocation, { state: { scrollY: window.scrollY }} ))
+            history.push(action.pathname)
         }
 
         if (action.type === actionTypes.REPLACE) {
