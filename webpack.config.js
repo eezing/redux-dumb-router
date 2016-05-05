@@ -3,7 +3,7 @@ var path = require('path')
 
 var args = {
     port: 3000,
-    entryPath: 'app/index',
+    entryPath: 'example/index',
     outputPath: 'public'
 }
 
