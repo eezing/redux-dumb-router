@@ -2,11 +2,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Handler from '../../src/handler/react'
-import Error404 from '../modules/Error/404.jsx'
+import Error404 from '../modules/Error/404'
 
-import About from './About.jsx'
-import Blog from './Blog.jsx'
-import Home from './Home.jsx'
+import About from './About'
+import Blog from './Blog'
+import Home from './Home'
 
 export default connect(mapState)(render)
 

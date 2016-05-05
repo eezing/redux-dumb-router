@@ -2,7 +2,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { routerActionCreators } from '../../../src'
-import Navbar from './Navbar.jsx'
+import Navbar from './Navbar'
 
 export default connect(mapState, mapDispatch)(render)
 

@@ -1,3 +1,3 @@
 
 import './style'
-import './root.jsx'
+import './root'
