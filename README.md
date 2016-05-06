@@ -66,7 +66,7 @@ let state = store.getState()
 
 ## Use with REACT
 
-** Note: ** This assumes you've completed Step 1 of "Get Started" above.
+**Note:** This assumes you've completed Step 1 of "Get Started" above.
 
 #### Step 1. Setup your root.jsx with react-redux
 
