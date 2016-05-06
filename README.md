@@ -4,83 +4,60 @@ A simple minded routing solution for reactjs/redux
 
 Essentially, it's just lightweight middleware to bridge redux to [mjackson/history](https://github.com/mjackson/history).
 
-- Issue a route change with a dispatch action
-- Router state in redux store
-- Catch route changes with middleware
-
-#### -- Experimental Package - Expect breaking changes --
+- Issue a location change with a dispatch action
+- Location state in redux store
+- Catch location changes with middleware
 
 [![Build Status](https://travis-ci.org/eezing/redux-dumb-router.svg?branch=master)](https://travis-ci.org/eezing/redux-dumb-router) [![npm version](https://badge.fury.io/js/redux-dumb-router.svg)](https://badge.fury.io/js/redux-dumb-router)
+
 ---
 
 ## Get Started
 
-#### Step 1 - Reducer
+#### Step 1. Create a redux store and include redux-dumb-router
 
 ```javascript
+// store.js
 
-import { routerReducer as router } from 'redux-dumb-router' // <-- a. import router reducer as [some name you choose]
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createHistory } from 'history'
+import { createRouterMiddleware } from 'redux-dumb-router'
+import { routerReducer as router } from 'redux-dumb-router'
 
+const history = createHistory()
+const routerMiddleware = createRouterMiddleware(history)
+
+const middleware = applyMiddleware(routerMiddleware)
+const reducer = combineReducers({ router })
+
+const store = createStore(reducer, middleware)
+
+export default store
 ```
 
-#### Step 2 - Middleware
+#### Step 2. Dispatch START action to start history listener
 
 ```javascript
+// app.js
 
-import createHistory from 'history/lib/createBrowserHistory' // <-- a. import create history
+import { routerActionCreators } from 'redux-dumb-router'
+import store from './store.js'
 
-import { createRouterMiddleware } from 'redux-dumb-router' // <-- b. import create middleware
+store.dispatch(routerActionCreators.start())
 
+let state = store.getState()
 
-const history = createHistory() // <-- c. create history
-
-const routerMiddleware = createRouterMiddleware(history) // <-- d. create middleware with history
-
+// state = { router: { location: { pathname: [pathname of current URL] ... }}}
 ```
 
-#### Step 3 - Dispatch start action
+#### Step 3. Dispatch GOTO action to push new location
 
 ```javascript
+// app.js
 
-import store from './your-store.js' // <-- a. your store
+store.dispatch(routerActionCreators.goto('/blog'))
 
-import { routerActionCreators } from 'redux-dumb-router' // <-- b. import action creators
+let state = store.getState()
 
-
-store.dispatch(routerActionCreators.start()) // <-- c. dispatch start action
-
-```
-
----
-
-## Change route action-creators
-
-#### Dispatch goto action
-
-```javascript
-
-import store from './your-store.js' // <-- a. your store
-
-import { routerActionCreators } from 'redux-dumb-router' // <-- b. import action creators
-
-
-const pathname = '/about' // <-- c. Specify a target pathname
-
-store.dispatch(routerActionCreators.goto(pathname)) // <-- d. dispatch goto action with target pathname
-
-```
-
-#### Dispatch replace action
-
-```javascript
-
-import store from './your-store.js' // <-- a. your store
-
-import { routerActionCreators } from 'redux-dumb-router' // <-- b. import action creators
-
-
-const pathname = '/contact' // <-- c. Specify a target pathname
-
-store.dispatch(routerActionCreators.replace(pathname)) // <-- d. dispatch replace action with target pathname
-
+// state = { router: { location: { pathname: '/blog' ... }}}
 ```
