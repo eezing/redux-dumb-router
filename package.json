@@ -1,7 +1,8 @@
 {
   "name": "redux-dumb-router",
   "version": "2.0.0",
-  "description": "",
+  "description": "A simple minded routing solution for reactjs/redux",
+  "keywords": "redux-dumb-router router redux history react",
   "main": "lib",
   "scripts": {
     "build:lib": "./node_modules/.bin/babel src -d lib",
