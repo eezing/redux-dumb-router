@@ -1,158 +1,113 @@
 
-import {expect} from 'chai'
+import { expect } from 'chai'
 import jsdom from 'mocha-jsdom'
 import { applyMiddleware, createStore } from 'redux'
-import {createMemoryHistory} from 'history'
+import { createMemoryHistory } from 'history'
 
 import createRouterMiddleware from '../src/create-middleware'
-import router from '../src/reducer'
 import * as actionCreators from '../src/action-creators'
-import * as actionTypes from '../src/action-types'
-
-const createTestMiddleware = (fn) => {
-    return store => next => action => {
-        fn(store, next, action)
-    }
-}
+import router from '../src/reducer'
 
 describe('Middleware', function() {
 
-    jsdom()
+	var history = null
+	var store = null
+	var routerMiddleware = null
 
-    context('Dispatch "CHANGE" action with final store result', function() {
-        it('Store should have expected structure', function() {
+	beforeEach(function() {
+		jsdom()
+		history = createMemoryHistory()
+		routerMiddleware = createRouterMiddleware(history)
+		store = createStore(router, applyMiddleware(routerMiddleware))
+	})
 
-            // setup
-            var pathname = '/silly-path'
-            var history = createMemoryHistory()
-            var subject = createRouterMiddleware(history)
-            var store = createStore(router, applyMiddleware(subject))
+	context('dispatch START', function() {
 
-            // action
-            store.dispatch(actionCreators.change(pathname))
+		it('should have redux store state have "location.action" equal to "POP"', function() {
 
-            // result
-            var result = store.getState()
-            var expected = { pathname: pathname, location: {} }
-            expect(result).to.be.eql(expected)
-        })
-    })
+			// action
+			store.dispatch(actionCreators.start())
 
-    context('Dispatch "START" action with final store result', function() {
-        it('Store should have expected structure', function() {
+			// result
+			var expected = 'POP'
+			var subject = store.getState().location.action
+			expect(subject).to.be.equal(expected)
+		})
 
-            // setup
-            var history = createMemoryHistory()
-            var subject = createRouterMiddleware(history)
-            var store = createStore(router, applyMiddleware(subject))
+		it('should have redux store state have "location.pathname" exist', function() {
 
-            // action
-            store.dispatch(actionCreators.start())
+			// action
+			store.dispatch(actionCreators.start())
 
-            // result
-            var result = store.getState()
-            expect(result).to.have.all.keys(['pathname', 'location'])
-            expect(result.pathname).to.be.equal('/')
-            expect(result.location).to.be.an('object')
-        })
-    })
+			// result
+			var subject = store.getState().location.pathname
+			expect(subject).to.exist
+		})
+	})
 
-    context('Dispatch "GOTO" action and interrupt change action', function() {
-        it('Store should have expected structure', function() {
+	context('dispatch GOTO', function() {
 
-            // setup
-            var pathname = '/about'
-            var interrupt = createTestMiddleware((store, next, action) => {
-                if (action.type == actionTypes.CHANGE && action.pathname == pathname) return
-                next(action)
-            })
-            var history = createMemoryHistory()
-            var subject = createRouterMiddleware(history)
-            var store = createStore(router, applyMiddleware(interrupt, subject))
-            store.dispatch(actionCreators.start())
+		it('should have redux store state have "location.action" equal to "PUSH"', function() {
 
-            // action
-            store.dispatch(actionCreators.goto(pathname))
+			// setup
+			store.dispatch(actionCreators.start())
 
-            // result
-            var result = store.getState()
-            expect(result).to.have.all.keys(['pathname', 'location', 'next'])
-            expect(result.pathname).to.equal('/')
-            expect(result.next).to.equal(pathname)
-            expect(result.location).to.be.an('object')
-        })
-    })
+			// action
+			store.dispatch(actionCreators.goto('/home'))
 
-    context('Dispatch "GOTO" action with final store result', function() {
-        it('Store should have expected structure', function() {
+			// result
+			var expected = 'PUSH'
+			var subject = store.getState().location.action
+			expect(subject).to.be.equal(expected)
+		})
 
-            // setup
-            var history = createMemoryHistory()
-            var subject = createRouterMiddleware(history)
-            var store = createStore(router, applyMiddleware(subject))
-            var pathname = '/about'
-            store.dispatch(actionCreators.start())
+		it('should have redux store state have "location.pathname" equal to given pathane', function() {
 
-            // action
-            store.dispatch(actionCreators.goto(pathname))
+			// setup
+			store.dispatch(actionCreators.start())
 
-            // result
-            var result = store.getState()
-            expect(result).to.have.all.keys(['pathname', 'location'])
-            expect(result.pathname).to.equal(pathname)
-            expect(result).to.not.have.property('next')
-            expect(result.location).to.be.an('object')
-        })
-    })
+			// action
+			var target = '/blog'
+			store.dispatch(actionCreators.goto(target))
 
-    context('Dispatch "REPLACE" action and interrupt change action', function() {
-        it('Store should have expected structure', function() {
+			// result
+			var expected = target
+			var subject = store.getState().location.pathname
+			expect(subject).to.be.equal(expected)
+		})
+	})
 
-            // setup
-            var pathname = '/my-replacement-path'
-            var history = createMemoryHistory()
-            var interrupt = createTestMiddleware((store, next, action) => {
-                if (action.type == actionTypes.CHANGE && action.pathname == pathname) return
-                next(action)
-            })
-            var subject = createRouterMiddleware(history)
-            var store = createStore(router, applyMiddleware(interrupt, subject))
-            store.dispatch(actionCreators.start())
+	context('dispatch REPLACE', function() {
 
-            // action
-            store.dispatch(actionCreators.replace(pathname))
+		it('should have redux store state have "location.action" equal to "REPLACE"', function() {
 
-            // result
-            var result = store.getState()
-            expect(result).to.have.all.keys(['pathname', 'next', 'location'])
-            expect(result.pathname).to.equal('/')
-            expect(result.location).to.be.an('object')
-            expect(result.next).to.equal(pathname)
-        })
-    })
+			// setup
+			store.dispatch(actionCreators.start())
+			store.dispatch(actionCreators.goto('/home'))
 
-    context('Dispatch "REPLACE" action with final store result', function() {
-        it('Store should have expected structure', function() {
+			// action
+			store.dispatch(actionCreators.replace('/blog'))
 
-            // setup
-            var pathname = '/my-replacement-path'
-            var history = createMemoryHistory()
-            var interrupt = createTestMiddleware((store, next, action) => {
-                next(action)
-            })
-            var subject = createRouterMiddleware(history)
-            var store = createStore(router, applyMiddleware(interrupt, subject))
-            store.dispatch(actionCreators.start())
+			// result
+			var expected = 'REPLACE'
+			var subject = store.getState().location.action
+			expect(subject).to.be.equal(expected)
+		})
 
-            // action
-            store.dispatch(actionCreators.replace(pathname))
+		it('should have redux store state have "location.pathname" equal to given pathane', function() {
 
-            // result
-            var result = store.getState()
-            expect(result).to.have.all.keys(['pathname', 'location'])
-            expect(result.pathname).to.equal(pathname)
-            expect(result).to.not.have.property('next')
-            expect(result.location).to.be.an('object')
-        })
-    })
+			// setup
+			store.dispatch(actionCreators.start())
+			store.dispatch(actionCreators.goto('/first'))
+
+			// action
+			var target = '/second'
+			store.dispatch(actionCreators.replace(target))
+
+			// result
+			var expected = target
+			var subject = store.getState().location.pathname
+			expect(subject).to.be.equal(expected)
+		})
+	})
 })

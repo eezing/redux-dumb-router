@@ -3,7 +3,7 @@ var path = require('path')
 
 var args = {
     port: 3000,
-    entryPath: 'app/index',
+    entryPath: 'example/index',
     outputPath: 'public'
 }
 
@@ -23,6 +23,9 @@ module.exports = {
         historyApiFallback: true,
         stats: { colors: true }
     },
+	resolve: {
+		extensions: ['', '.js', '.jsx']
+	},
     devtool: 'source-map',
     debug: true,
     module: {
