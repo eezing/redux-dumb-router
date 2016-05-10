@@ -1,7 +1,7 @@
 
 import * as actionTypes from './action-types'
 
-export default function(state = {}, action) {
+export default function(state = { location: {} }, action) {
 
     switch (action.type) {
 
