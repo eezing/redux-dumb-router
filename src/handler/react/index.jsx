@@ -14,5 +14,5 @@ export default React.createClass({
 function render() {
 	if (this.props.location.pathname === undefined) return null
 	const Route = Wrapper(this.props.routes[this.props.location.pathname] || this.props.notFound)
-	return <Route location={location} />
+	return <Route location={this.props.location} />
 }
